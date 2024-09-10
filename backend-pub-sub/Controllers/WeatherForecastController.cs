@@ -8,6 +8,7 @@ namespace backend_pub_sub.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
+            //Prueba de cambio
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
