@@ -2,7 +2,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CommunWork.Mensajes; // Importar la clase de mensaje
+using CommunWork.Mensajes; // Importar la clase de mensaje desde CommonWork
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +29,18 @@ builder.Services.AddMassTransit(x =>
 // Añadir el servicio de MassTransit Hosted
 builder.Services.AddMassTransitHostedService();
 
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,6 +51,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Usar CORS antes de la autorización
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthorization();
 

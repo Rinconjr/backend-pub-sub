@@ -18,6 +18,11 @@ public class MessagesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SendMessage([FromBody] MyMessage message)
     {
+        if (message == null || string.IsNullOrEmpty(message.Text))
+        {
+            return BadRequest("El mensaje no puede estar vacío.");
+        }
+
         // Publica el mensaje en RabbitMQ
         await _publishEndpoint.Publish(message);
         return Ok("Mensaje enviado correctamente.");
