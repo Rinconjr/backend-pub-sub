@@ -1,0 +1,6 @@
+@ComumonWork_HostAddress = http://localhost:5097
+
+GET {{ComumonWork_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
