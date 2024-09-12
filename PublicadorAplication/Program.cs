@@ -50,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // Usar CORS antes de la autorización
 app.UseCors("AllowAllOrigins");

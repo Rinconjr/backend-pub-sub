@@ -18,10 +18,11 @@ namespace SubscriptoAplicacion.Consumers
         {
             // Lógica para procesar el mensaje recibido
             string messageText = context.Message.Text;
+            // Imprimir en consola
             Console.WriteLine($"Mensaje recibido: {messageText}");
 
             // Enviar el mensaje a todos los WebSockets conectados
-            await _connectionManager.SendMessageToAllAsync($"Mensaje recibido desde el consumidor: {messageText}");
+            await _connectionManager.SendMessageToAllAsync($"Mensaje recibido: {messageText}");
         }
     }
 }

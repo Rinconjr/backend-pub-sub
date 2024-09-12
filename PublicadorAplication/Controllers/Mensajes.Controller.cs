@@ -20,11 +20,11 @@ public class MessagesController : ControllerBase
     {
         if (message == null || string.IsNullOrEmpty(message.Text))
         {
-            return BadRequest("El mensaje no puede estar vacío.");
+            return BadRequest(new { message = "El mensaje no puede estar vacío." });
         }
 
         // Publica el mensaje en RabbitMQ
         await _publishEndpoint.Publish(message);
-        return Ok("Mensaje enviado correctamente.");
+        return Ok(new { message = "Mensaje enviado correctamente." });
     }
 }
