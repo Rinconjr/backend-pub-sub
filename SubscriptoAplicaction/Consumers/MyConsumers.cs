@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using CommunWork.Mensajes; // Asegúrate de importar el namespace correcto del mensaje
-using SubscriptoAplicacion.Services;
 using System.Threading.Tasks;
 
 namespace SubscriptoAplicacion.Consumers
@@ -17,12 +16,15 @@ namespace SubscriptoAplicacion.Consumers
         public async Task Consume(ConsumeContext<MyMessage> context)
         {
             // Lógica para procesar el mensaje recibido
+            string topic = context.Message.Topic;
             string messageText = context.Message.Text;
+
             // Imprimir en consola
             Console.WriteLine($"Mensaje recibido: {messageText}");
+            Console.WriteLine($"Topico: {topic}");
 
-            // Enviar el mensaje a todos los WebSockets conectados
-            await _connectionManager.SendMessageToAllAsync($"Mensaje recibido: {messageText}");
+            // Lógica para enviar solo a los WebSockets suscritos al tópico correspondiente
+            await _connectionManager.SendMessageToTopicAsync(topic, $"Mensaje recibido: {messageText}");
         }
     }
 }

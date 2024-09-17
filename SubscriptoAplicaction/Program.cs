@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.WebSockets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SubscriptoAplicacion.Consumers;
-using SubscriptoAplicacion.Services;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,9 +77,11 @@ app.Use(async (context, next) =>
         {
             var webSocket = await context.WebSockets.AcceptWebSocketAsync();
             var connectionManager = app.Services.GetRequiredService<WebSocketConnectionManager>();
-            var connectionId = connectionManager.AddSocket(webSocket);
 
-            // Manejo de la conexión WebSocket
+            // Obtener el tópico de la solicitud
+            var topic = context.Request.Query["topic"]; // Ejemplo: wss://localhost/ws?topic=topico1
+            var connectionId = connectionManager.AddSocket(webSocket, topic);
+
             await HandleWebSocketConnection(webSocket, connectionManager, connectionId);
         }
         else
@@ -93,6 +94,7 @@ app.Use(async (context, next) =>
         await next();
     }
 });
+
 
 app.Run();
 
