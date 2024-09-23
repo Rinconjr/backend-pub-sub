@@ -5,7 +5,6 @@ using System.Text;
 public class WebSocketConnectionManager
 {
     private ConcurrentDictionary<string, (WebSocket Socket, string Topic)> _sockets = new ConcurrentDictionary<string, (WebSocket, string)>();
-
     // Agregar un nuevo WebSocket con su tópico
     public string AddSocket(WebSocket socket, string topic)
     {
@@ -13,7 +12,6 @@ public class WebSocketConnectionManager
         _sockets.TryAdd(connectionId, (socket, topic));
         return connectionId;
     }
-
     // Remover un WebSocket del diccionario
     public async Task RemoveSocketAsync(string connectionId)
     {
@@ -23,7 +21,6 @@ public class WebSocketConnectionManager
             socketInfo.Socket.Dispose();
         }
     }
-
     // Enviar un mensaje solo a los WebSockets suscritos a un tópico específico
     public async Task SendMessageToTopicAsync(string topic, string message)
     {

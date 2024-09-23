@@ -26,7 +26,6 @@ namespace SubscriptoAplicaction.Migrations
                     table.PrimaryKey("PK_Messages", x => x.Id);
                 });
         }
-
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {

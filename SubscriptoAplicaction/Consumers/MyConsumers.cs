@@ -16,7 +16,6 @@ namespace SubscriptoAplicacion.Consumers
             _connectionManager = connectionManager;
             _dbContext = dbContext; // Asigna el contexto de base de datos
         }
-
         public async Task Consume(ConsumeContext<MyMessage> context)
         {
             // Lógica para procesar el mensaje recibido
@@ -34,7 +33,6 @@ namespace SubscriptoAplicacion.Consumers
                 Topico = topic,
                 Fecha = DateTime.Now
             };
-
             try
             {
                 Console.WriteLine("Intentando guardar el mensaje en la base de datos...");
@@ -46,7 +44,6 @@ namespace SubscriptoAplicacion.Consumers
             {
                 Console.WriteLine($"Error al guardar el mensaje en la base de datos: {ex.Message}");
             }
-
             // Lógica para enviar solo a los WebSockets suscritos al tópico correspondiente
             await _connectionManager.SendMessageToTopicAsync(topic, $"Mensaje recibido: {messageText}");
         }
