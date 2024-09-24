@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SubscriptoAplicacion.Consumers;
 using SubscriptoAplicacion.Data; // Esto asegura que el contexto de la base de datos esté disponible
-using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,21 +44,11 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-// Añadir el servicio de MassTransit Hosted
 builder.Services.AddMassTransitHostedService();
 
-// Configurar WebSockets
-builder.Services.AddWebSockets(options =>
-{
-    options.KeepAliveInterval = TimeSpan.FromSeconds(120);
-});
-
-// Registrar el WebSocketConnectionManager
-builder.Services.AddSingleton<WebSocketConnectionManager>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -72,57 +61,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Configurar el middleware de WebSocket
-app.UseWebSockets();
-
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path == "/ws")
-    {
-        if (context.WebSockets.IsWebSocketRequest)
-        {
-            var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-            var connectionManager = app.Services.GetRequiredService<WebSocketConnectionManager>();
-
-            // Obtener el tópico de la solicitud
-            var topic = context.Request.Query["topic"]; // Ejemplo: wss://localhost/ws?topic=topico1
-            var connectionId = connectionManager.AddSocket(webSocket, topic);
-
-            await HandleWebSocketConnection(webSocket, connectionManager, connectionId);
-        }
-        else
-        {
-            context.Response.StatusCode = 400;
-        }
-    }
-    else
-    {
-        await next();
-    }
-});
 
 app.Run();
-
-// Método para manejar la comunicación WebSocket
-async Task HandleWebSocketConnection(WebSocket webSocket, WebSocketConnectionManager manager, string connectionId)
-{
-    var buffer = new byte[1024 * 4];
-    WebSocketReceiveResult result;
-
-    try
-    {
-        while ((result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None)).CloseStatus == null)
-        {
-            // Aquí puedes manejar los mensajes entrantes si es necesario
-            await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-        }
-    }
-    catch (Exception ex)
-    {
-        // Manejar excepciones si es necesario
-    }
-    finally
-    {
-        await manager.RemoveSocketAsync(connectionId);
-    }
-}
