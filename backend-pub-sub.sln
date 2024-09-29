@@ -1,10 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicadorAplication", "PublicadorAplication\PublicadorAplication.csproj", "{36635936-87FE-4DE9-A510-44E38C65A612}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptoAplicaction", "SubscriptoAplicaction\SubscriptoAplicaction.csproj", "{0F31D835-946A-44A6-BD37-FE82A1F4ADC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunWork", "CommunWork\CommunWork.csproj", "{EB51BC58-77D6-4E01-B072-6704FD2C7DBC}"
@@ -15,10 +12,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{36635936-87FE-4DE9-A510-44E38C65A612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36635936-87FE-4DE9-A510-44E38C65A612}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36635936-87FE-4DE9-A510-44E38C65A612}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36635936-87FE-4DE9-A510-44E38C65A612}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F31D835-946A-44A6-BD37-FE82A1F4ADC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F31D835-946A-44A6-BD37-FE82A1F4ADC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F31D835-946A-44A6-BD37-FE82A1F4ADC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
