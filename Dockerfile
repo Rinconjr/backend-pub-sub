@@ -20,8 +20,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Exponer el puerto en el que la aplicación va a escuchar
-EXPOSE 80
+# Exponer los puertos HTTP (5054) y HTTPS (7016)
+EXPOSE 5054
+EXPOSE 7016
+
+# Configurar la aplicación para que escuche en los puertos correctos
+ENV ASPNETCORE_URLS="http://+:5054;https://+:7016"
 
 # Definir el comando de inicio de la aplicación
 ENTRYPOINT ["dotnet", "SubscriptoAplicaction.dll"]
