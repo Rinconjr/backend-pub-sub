@@ -21,3 +21,7 @@ docker-compose up
 ```
 
 Este comando levantará los servicios necesarios definidos en el archivo `docker-compose.yml` para ejecutar la aplicación.
+
+## Presentacion
+
+https://www.canva.com/design/DAGRQ4fNBP8/2tK93Q0Of83ADZDHIVeiIw/edit?utm_content=DAGRQ4fNBP8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
